@@ -1,0 +1,92 @@
+:root {
+  --bg: #f8f4fc;
+  --card: #fff;
+  --accent: #c4a1e0;
+  --accent-hover: #b38cd4;
+  --text: #3c2a4d;
+  --shadow: rgba(121, 88, 159, 0.15);
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.container {
+  background: var(--card);
+  box-shadow: 0 4px 10px var(--shadow);
+  padding: 2rem;
+  border-radius: 20px;
+  width: 350px;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+.input-section {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+#taskInput {
+  flex: 1;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+}
+
+#addBtn {
+  background: var(--accent);
+  border: none;
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#addBtn:hover {
+  background: var(--accent-hover);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  background: var(--accent-hover);
+  color: white;
+  margin: 0.5rem 0;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s ease;
+}
+
+li.done {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+button.delete {
+  background: white;
+  color: var(--accent-hover);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
