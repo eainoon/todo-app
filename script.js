@@ -1,68 +1,35 @@
-const taskInput = document.getElementById("taskInput");
-const addBtn = document.getElementById("addBtn");
-const taskList = document.getElementById("taskList");
+const todoInput = document.getElementById('todo-input');
+const addBtn = document.getElementById('add-btn');
+const todoList = document.getElementById('todo-list');
 
-// Load saved tasks
-document.addEventListener("DOMContentLoaded", loadTasks);
+addBtn.addEventListener('click', addTodo);
+todoInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') addTodo();
+});
 
-// Add new task
-addBtn.addEventListener("click", addTask);
+function addTodo() {
+  const task = todoInput.value.trim();
+  if (task === '') return;
 
-function addTask() {
-  const taskText = taskInput.value.trim();
-  if (taskText === "") return;
+  const li = document.createElement('li');
+  li.textContent = task;
 
-  createTask(taskText);
-  saveTask(taskText);
-  taskInput.value = "";
-}
-
-function createTask(text) {
-  const li = document.createElement("li");
-  li.textContent = text;
-
-  // Done toggle
-  li.addEventListener("click", () => {
-    li.classList.toggle("done");
-    saveAllTasks();
+  // Complete task on click
+  li.addEventListener('click', () => {
+    li.classList.toggle('completed');
   });
 
   // Delete button
-  const delBtn = document.createElement("button");
-  delBtn.textContent = "×";
-  delBtn.classList.add("delete");
-  delBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
+  const deleteBtn = document.createElement('button');
+  deleteBtn.textContent = '❌';
+  deleteBtn.classList.add('delete-btn');
+  deleteBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // prevent completing task
     li.remove();
-    saveAllTasks();
   });
 
-  li.appendChild(delBtn);
-  taskList.appendChild(li);
-}
+  li.appendChild(deleteBtn);
+  todoList.appendChild(li);
 
-function saveTask(taskText) {
-  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  tasks.push({ text: taskText, done: false });
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-}
-
-function loadTasks() {
-  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  tasks.forEach((task) => {
-    createTask(task.text);
-    const li = taskList.lastElementChild;
-    if (task.done) li.classList.add("done");
-  });
-}
-
-function saveAllTasks() {
-  const tasks = [];
-  document.querySelectorAll("li").forEach((li) => {
-    tasks.push({
-      text: li.firstChild.textContent,
-      done: li.classList.contains("done"),
-    });
-  });
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+  todoInput.value = '';
 }
