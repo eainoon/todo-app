@@ -9,12 +9,12 @@ todoInput.addEventListener('keypress', (e) => {
 
 function addTodo() {
   const task = todoInput.value.trim();
-  if (task === '') return;
+  if (!task) return;
 
   const li = document.createElement('li');
   li.textContent = task;
 
-  // Complete task on click
+  // Toggle completed on click
   li.addEventListener('click', () => {
     li.classList.toggle('completed');
   });
@@ -24,12 +24,11 @@ function addTodo() {
   deleteBtn.textContent = '❌';
   deleteBtn.classList.add('delete-btn');
   deleteBtn.addEventListener('click', (e) => {
-    e.stopPropagation(); // prevent completing task
+    e.stopPropagation();
     li.remove();
   });
 
   li.appendChild(deleteBtn);
   todoList.appendChild(li);
-
   todoInput.value = '';
 }
